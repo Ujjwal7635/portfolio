@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ujjwal Kumar Verma · Data Analyst Portfolio (Preview)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/8e9b9a9f20.js" crossorigin="anonymous"></script>
+  <!-- Chart.js (for quick charts in preview) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+  <style>
+    :root { --brand:#2563eb; --brand2:#60a5fa; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    /* Glass card */
+    .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.7); }
+    .dark .glass { background: rgba(17,24,39,0.6); }
+    /* Section reveal */
+    .reveal { opacity:0; transform: translateY(18px); transition: all .6s ease; }
+    .reveal.show { opacity:1; transform: translateY(0); }
+    /* Scrollspy active link */
+    .nav-link.active { color: var(--brand) !important; }
+    /* Hero grid glow */
+    .glow { box-shadow: 0 0 0 1px rgba(255,255,255,0.2), 0 30px 80px rgba(37,99,235,0.35); }
+    /* Typing caret */
+    .caret::after { content:"|"; animation: blink 1s infinite; margin-left:2px; }
+    @keyframes blink { 0%,100%{opacity:0;} 50%{opacity:1;} }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+  <!-- NAV -->
+  <header class="fixed top-0 inset-x-0 z-50">
+    <nav class="glass mx-auto max-w-6xl mt-3 rounded-2xl px-4 md:px-6 py-3 flex items-center justify-between shadow-lg">
+      <a href="#home" class="font-extrabold tracking-tight text-lg md:text-xl flex items-center gap-2">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-blue-600 text-white">UV</span>
+        <span>Ujjwal Kumar Verma</span>
+      </a>
+      <div class="hidden md:flex gap-6 text-sm">
+        <a class="nav-link hover:text-blue-600" href="#home">Home</a>
+        <a class="nav-link hover:text-blue-600" href="#about">About</a>
+        <a class="nav-link hover:text-blue-600" href="#services">Services</a>
+        <a class="nav-link hover:text-blue-600" href="#skills">Skills</a>
+        <a class="nav-link hover:text-blue-600" href="#projects">Projects</a>
+        <a class="nav-link hover:text-blue-600" href="#analytics">Analytics</a>
+        <a class="nav-link hover:text-blue-600" href="#contact">Contact</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="themeBtn" class="h-9 w-9 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:scale-105 transition">
+          <span id="themeIcon">🌙</span>
+        </button>
+        <a href="#contact" class="hidden sm:inline-flex bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl shadow">Hire Me</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="relative min-h-[92vh] grid place-items-center overflow-hidden pt-28">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-500 to-sky-400 dark:from-blue-900 dark:via-blue-800 dark:to-sky-700 opacity-90"></div>
+    <!-- soft grid deco -->
+    <div class="absolute inset-0 opacity-20 pointer-events-none"
+         style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 22px 22px;"></div>
+    <div class="relative z-10 max-w-6xl mx-auto px-4 text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow">Data turns into Decisions</h1>
+      <p class="mt-3 text-lg md:text-xl opacity-90">I build actionable dashboards & analytics that drive growth.</p>
+
+      <div class="mt-6 text-2xl md:text-3xl font-semibold caret">
+        <span id="typing">Data Analyst</span>
+      </div>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="./assets/resume.pdf" target="_blank"
+   class="bg-white text-blue-700 hover:bg-gray-100 px-5 py-3 rounded-xl shadow glow">
+   📄 Download CV
+</a>
+        <a href="#projects" class="bg-blue-700 hover:bg-blue-800 px-5 py-3 rounded-xl shadow">View Projects</a>
+        <a href="#contact" class="bg-transparent border border-white/80 hover:bg-white/10 px-5 py-3 rounded-xl">Contact</a>
+      </div>
+
+      <!-- subtle chart bg -->
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-4">
+          <canvas id="mini1" height="100"></canvas>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <canvas id="mini2" height="100"></canvas>
+        </div>
+        <div class="glass rounded-2xl p-4">
+          <canvas id="mini3" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+<section id="about" class="max-w-6xl mx-auto px-4 py-20">
+  <div class="grid md:grid-cols-3 gap-10 items-center">
+    <div class="reveal">
+      <div class="relative w-56 h-56 md:w-64 md:h-64 mx-auto">
+
+        <!-- WebP + JPG fallback -->
+        <picture>
+          <source srcset="./assets/profile.webp" type="image/webp" />
+          <img 
+            class="w-full h-full object-cover rounded-3xl shadow-2xl ring-4 ring-blue-600/20"
+            src="./assets/profile.jpg"
+            alt="Ujjwal Verma"
+            width="256"
+            height="256"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+
+        <div class="absolute -inset-3 rounded-3xl border-2 border-blue-500/40 animate-pulse"></div>
+      </div>
+    </div>
+      <div class="md:col-span-2 reveal">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+        <p class="text-lg opacity-90">
+          I’m <b>Ujjwal Kumar Verma</b>, a data analyst specialized in <b>SQL</b>, <b>Power BI</b>, and <b>Python</b>.
+          I design clean data models, write scalable queries, and build dashboards that leaders actually use.
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4 mt-8">
+          <div class="glass rounded-2xl p-5 text-center">
+            <div class="text-3xl font-extrabold text-blue-600">5+</div>
+            <div class="opacity-70">Projects</div>
+          </div>
+          <div class="glass rounded-2xl p-5 text-center">
+            <div class="text-3xl font-extrabold text-blue-600">3</div>
+            <div class="opacity-70">Dashboards</div>
+          </div>
+          <div class="glass rounded-2xl p-5 text-center">
+            <div class="text-3xl font-extrabold text-blue-600">1k+</div>
+            <div class="opacity-70">SQL Queries</div>
+          </div>
+        </div>
+        <div class="mt-8 flex gap-3">
+          <a href="mailto:ujjwal@example.com" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white">Hire Me</a>
+          <a href="./assets/resume.pdf" target="_blank"
+   class="bg-white text-blue-700 hover:bg-gray-100 px-5 py-3 rounded-xl shadow glow">
+   📄 Download CV
+</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="bg-gray-100 dark:bg-gray-800 py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-10 text-center">What I Do</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="reveal glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl transition">
+          <i class="fa-solid fa-database text-3xl text-blue-600"></i>
+          <h3 class="mt-4 font-semibold text-lg">Data Cleaning & ETL</h3>
+          <p class="opacity-80 text-sm mt-1">SQL, Power Query, Python to make data analysis-ready.</p>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl transition">
+          <i class="fa-solid fa-chart-line text-3xl text-blue-600"></i>
+          <h3 class="mt-4 font-semibold text-lg">KPIs & Dashboards</h3>
+          <p class="opacity-80 text-sm mt-1">Power BI dashboards with drilldowns & slicers.</p>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl transition">
+          <i class="fa-solid fa-diagram-project text-3xl text-blue-600"></i>
+          <h3 class="mt-4 font-semibold text-lg">Modeling & DAX</h3>
+          <p class="opacity-80 text-sm mt-1">Star schema, relationships, measures, time-intel.</p>
+        </div>
+        <div class="reveal glass rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl transition">
+          <i class="fa-solid fa-robot text-3xl text-blue-600"></i>
+          <h3 class="mt-4 font-semibold text-lg">Python Automation</h3>
+          <p class="opacity-80 text-sm mt-1">Automated reports with Pandas/Matplotlib.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="max-w-6xl mx-auto px-4 py-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-10 text-center">Skills</h2>
+    <div class="max-w-3xl mx-auto space-y-5">
+      <!-- progress item -->
+      <div class="reveal">
+        <div class="flex justify-between text-sm mb-1"><span>SQL</span><span>90%</span></div>
+        <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div class="h-full bg-blue-600 w-0 skillbar" data-w="90"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="flex justify-between text-sm mb-1"><span>Excel</span><span>85%</span></div>
+        <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div class="h-full bg-blue-600 w-0 skillbar" data-w="85"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="flex justify-between text-sm mb-1"><span>Power BI</span><span>80%</span></div>
+        <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div class="h-full bg-blue-600 w-0 skillbar" data-w="80"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="flex justify-between text-sm mb-1"><span>Python</span><span>75%</span></div>
+        <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div class="h-full bg-blue-600 w-0 skillbar" data-w="75"></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="flex justify-between text-sm mb-1"><span>DAX / Power Query</span><span>70%</span></div>
+        <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div class="h-full bg-blue-600 w-0 skillbar" data-w="70"></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 flex flex-wrap justify-center gap-2">
+      <!-- tags -->
+      <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">MySQL</span>
+      <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Pandas</span>
+      <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">NumPy</span>
+      <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Git</span>
+      <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Tableau</span>
+      <span class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">ETL</span>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="bg-gray-100 dark:bg-gray-800 py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-10 text-center">Projects</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- card -->
+        <article class="reveal group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow hover:shadow-xl transition">
+  <div class="relative">
+    <img class="h-48 w-full object-cover"
+         src="./assets/health-dashboard.webp"
+         alt="Excel Sales & KPI Dashboard">
+    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition grid place-items-center">
+      <div class="flex gap-3">
+        <a class="px-4 py-2 rounded-lg bg-blue-600 text-white" href="#">Live</a>
+        <a class="px-4 py-2 rounded-lg bg-gray-700 text-white" href="#">GitHub</a>
+      </div>
+    </div>
+  </div>
+  <div class="p-5">
+    <h3 class="font-semibold text-lg">Excel Sales & KPI Dashboard</h3>
+    <p class="text-sm opacity-80 mt-1">
+      Built an interactive Excel dashboard with pivot tables, charts, and slicers to analyze sales performance and KPIs.
+    </p>
+    <div class="mt-3 flex flex-wrap gap-2 text-xs">
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">Excel</span>
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">Pivot Tables</span>
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">Slicers</span>
+    </div>
+  </div>
+</article>
+        <article class="reveal group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow hover:shadow-xl transition">
+  <div class="relative">
+    <!-- Olist Project Image -->
+    <img class="h-48 w-full object-cover"
+         src="./assets/olist-dashboard.webp"
+         alt="Olist E-commerce Sales & Customer Insights Dashboard">
+    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition grid place-items-center">
+      <div class="flex gap-3">
+        <!-- Replace # with actual links if you have -->
+        <a class="px-4 py-2 rounded-lg bg-blue-600 text-white" href="#">Live</a>
+        <a class="px-4 py-2 rounded-lg bg-gray-700 text-white" href="#">GitHub</a>
+      </div>
+    </div>
+  </div>
+  <div class="p-5">
+    <h3 class="font-semibold text-lg">Olist E-commerce Sales & Customer Insights Dashboard</h3>
+    <p class="text-sm opacity-80 mt-1">
+      An interactive dashboard analyzing Olist’s e-commerce sales performance, customer behavior, and KPIs with actionable insights.
+    </p>
+    <div class="mt-3 flex flex-wrap gap-2 text-xs">
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">Power BI</span>
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">SQL</span>
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">E-commerce</span>
+    </div>
+  </div>
+</article>
+
+        <article class="reveal group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow hover:shadow-xl transition">
+  <div class="relative">
+    <img class="h-48 w-full object-cover"
+         src="./assets/t20-cricket-dashboard.webp"
+         alt="T20 Cricket Analytics Dashboard">
+    <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition grid place-items-center">
+      <div class="flex gap-3">
+        <a class="px-4 py-2 rounded-lg bg-blue-600 text-white" href="#">Live</a>
+        <a class="px-4 py-2 rounded-lg bg-gray-700 text-white" href="#">GitHub</a>
+      </div>
+    </div>
+  </div>
+  <div class="p-5">
+    <h3 class="font-semibold text-lg">T20 Cricket Analytics Dashboard</h3>
+    <p class="text-sm opacity-80 mt-1">
+      Interactive Power BI dashboard analyzing T20 cricket match data with runs, wickets, and player performance insights.
+    </p>
+    <div class="mt-3 flex flex-wrap gap-2 text-xs">
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">Power BI</span>
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">Excel</span>
+      <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-200">Data Cleaning</span>
+    </div>
+  </div>
+</article>
+      </div>
+    </div>
+  </section>
+<!-- CERTIFICATES -->
+<section id="certificates" class="bg-gray-100 dark:bg-gray-800 py-20">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-10">Certificates & Achievements</h2>
+    
+    <div class="mx-auto max-w-md">
+      <!-- Certificate Card -->
+      <article class="reveal group bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow hover:shadow-xl transition">
+        <div class="relative h-60 flex items-center justify-center bg-gray-50 dark:bg-gray-800">
+          <img class="max-h-full object-contain"
+               src="./assets/certificate-powerbi.jpg"
+               alt="Power BI Certificate">
+        </div>
+        <div class="p-5">
+          <h3 class="font-semibold text-lg">Power BI Certificate</h3>
+          <p class="text-sm opacity-80 mt-1">Awarded for completing Power BI advanced training.</p>
+          <div class="mt-4 flex justify-center gap-3">
+            <a class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+               href="./assets/certificate-powerbi.jpg" target="_blank">View</a>
+            <a class="px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-800"
+               href="./assets/certificate-powerbi.jpg" download>Download</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- ANALYTICS -->
+  <section id="analytics" class="max-w-6xl mx-auto px-4 py-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-10 text-center">Interactive Analytics</h2>
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="reveal glass rounded-2xl p-6">
+        <h3 class="font-semibold mb-3">Revenue Trend</h3>
+        <canvas id="revChart" height="220"></canvas>
+      </div>
+      <div class="reveal glass rounded-2xl p-6">
+        <h3 class="font-semibold mb-3">Orders by Month</h3>
+        <canvas id="ordChart" height="220"></canvas>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-4 mt-8">
+      <div class="glass rounded-2xl p-5 text-center">
+        <div class="text-2xl font-bold">₹48.5L</div><div class="text-sm opacity-70">Total Revenue</div>
+      </div>
+      <div class="glass rounded-2xl p-5 text-center">
+        <div class="text-2xl font-bold">1,240</div><div class="text-sm opacity-70">Total Orders</div>
+      </div>
+      <div class="glass rounded-2xl p-5 text-center">
+        <div class="text-2xl font-bold">₹3,211</div><div class="text-sm opacity-70">Avg. Order Value</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="bg-gray-100 dark:bg-gray-800 py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold mb-10 text-center">Get in Touch</h2>
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="reveal glass rounded-2xl p-6">
+          <div class="space-y-4">
+            <div class="flex gap-3 items-start">
+              <i class="fa-solid fa-envelope text-blue-600 mt-1"></i>
+              <div>
+  <div class="text-sm opacity-70">Email</div>
+  <a class="hover:text-blue-600" href="mailto:ujjwalv699@gmail.com">
+    ujjwalv699@gmail.com
+  </a>
+</div>
+            </div>
+            <div class="flex gap-3 items-start">
+  <i class="fa-brands fa-linkedin text-blue-600 mt-1"></i>
+  <div>
+    <div class="text-sm opacity-70">LinkedIn</div>
+    <a class="hover:text-blue-600" href="https://www.linkedin.com/in/ujjwal-verma-28732423b/" target="_blank">
+      linkedin.com/in/ujjwal-verma-28732423b
+    </a>
+  </div>
+</div>
+            <div class="flex gap-3 items-start">
+              <i class="fa-brands fa-github text-blue-600 mt-1"></i>
+              <div>
+  <div class="text-sm opacity-70">GitHub</div>
+  <a class="hover:text-blue-600" href="https://github.com/Ujjwal7635" target="_blank">
+    github.com/Ujjwal7635
+  </a>
+</div>
+            </div>
+          </div>
+        </div>
+        <form class="reveal glass rounded-2xl p-6 space-y-4"
+              action="https://formspree.io/f/your-id" method="POST">
+          <div>
+            <label class="text-sm">Your Name</label>
+            <input name="name" required class="mt-1 w-full px-4 py-3 rounded-xl bg-white/80 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700" />
+          </div>
+          <div>
+            <label class="text-sm">Your Email</label>
+            <input name="email" type="email" required class="mt-1 w-full px-4 py-3 rounded-xl bg-white/80 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700" />
+          </div>
+          <div>
+            <label class="text-sm">Message</label>
+            <textarea name="message" rows="4" required class="mt-1 w-full px-4 py-3 rounded-xl bg-white/80 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700"></textarea>
+          </div>
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl">Send Message</button>
+          <p class="text-xs opacity-70">Tip: replace <code>your-id</code> with your Formspree ID or hook up EmailJS later.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="opacity-70">© 2025 Ujjwal Kumar Verma · All rights reserved.</p>
+      <div class="flex gap-5 text-xl">
+        <a class="hover:text-blue-600" href="https://linkedin.com/in/ujjwal" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a class="hover:text-blue-600" href="https://github.com/ujjwal" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a class="hover:text-blue-600" href="mailto:ujjwal@example.com"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="toTop" title="Back to top"
+          class="fixed bottom-6 right-6 hidden bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Dark mode toggle (remembers choice)
+    const themeBtn = document.getElementById('themeBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = localStorage.getItem('theme');
+    if ((saved==='dark') || (!saved && prefersDark)) document.documentElement.classList.add('dark');
+    themeIcon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    themeBtn.onclick = () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark':'light');
+      themeIcon.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    };
+
+    // Typing effect
+    const roles = ['Data Analyst','SQL Enthusiast','Power BI Developer','Python Learner'];
+    let ri=0, ci=0, del=false;
+    const typingEl = document.getElementById('typing');
+    function tick(){
+      const t = roles[ri];
+      typingEl.textContent = del ? t.slice(0,ci--) : t.slice(0,ci++);
+      if (!del && ci===t.length){ setTimeout(()=>del=true, 800); }
+      if (del && ci<0){ del=false; ri=(ri+1)%roles.length; }
+      setTimeout(tick, del?40:90);
+    }
+    tick();
+
+    // Reveal on scroll + skill bars anim
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('show');
+          if (e.target.classList.contains('skillbar')) {
+            // handled below
+          }
+        }
+      })
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Animate skill bars
+    const sbars = document.querySelectorAll('.skillbar');
+    const sIO = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const w = e.target.getAttribute('data-w') + '%';
+          e.target.style.width = w;
+          sIO.unobserve(e.target);
+        }
+      })
+    }, { threshold: .6 });
+    sbars.forEach(b=>sIO.observe(b));
+
+    // Scrollspy
+    const links = [...document.querySelectorAll('.nav-link')];
+    const sections = links.map(a=>document.querySelector(a.getAttribute('href')));
+    const spy = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const idx = sections.indexOf(entry.target);
+        if(entry.isIntersecting){
+          links.forEach(l=>l.classList.remove('active'));
+          links[idx]?.classList.add('active');
+        }
+      })
+    }, { rootMargin: '-50% 0px -45% 0px', threshold: 0.01 });
+    sections.forEach(sec=>spy.observe(sec));
+
+    // Back to top
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      toTop.classList.toggle('hidden', window.scrollY < 400);
+    });
+    toTop.onclick = ()=>window.scrollTo({top:0, behavior:'smooth'});
+
+    // Mini charts in hero
+    const miniCfg = (ctx, data)=> new Chart(ctx, {
+      type: 'line',
+      data: { labels:['Jan','Feb','Mar','Apr','May','Jun'],
+              datasets:[{ data, borderWidth:2, fill:false, tension:.35 }] },
+      options: { responsive:true, plugins:{ legend:{display:false}}, scales:{ x:{display:false}, y:{display:false} } }
+    });
+    miniCfg(document.getElementById('mini1'), [4,6,5,7,9,11]);
+    miniCfg(document.getElementById('mini2'), [8,7,9,10,12,15]);
+    miniCfg(document.getElementById('mini3'), [2,3,4,6,5,7]);
+
+    // Main analytics charts
+    const light = getComputedStyle(document.documentElement).getPropertyValue('--brand') || '#2563eb';
+    new Chart(document.getElementById('revChart'), {
+      type: 'line',
+      data: {
+        labels:['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets:[{ label:'Revenue', data:[40,30,20,28,18,24], borderColor: light, tension:.35 }]
+      },
+      options: { plugins:{ legend:{display:false}}, scales:{ y:{ grid:{color:'rgba(0,0,0,0.1)'} } } }
+    });
+    new Chart(document.getElementById('ordChart'), {
+      type: 'bar',
+      data: {
+        labels:['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets:[{ label:'Orders', data:[2400,2210,2290,2000,2181,2600], backgroundColor: 'rgba(37,99,235,0.8)' }]
+      },
+      options: { plugins:{ legend:{display:false}}, scales:{ y:{ grid:{color:'rgba(0,0,0,0.1)'} } } }
+    });
+  </script>
+</body>
+</html>
